@@ -1,12 +1,15 @@
 import streamlit as st
 import numpy as np
 import pandas as pd
-import joblib
 import pickle
-from sklearn.preprocessing import StandardScaler, LabelEncoder
 
-# Memuat model terbaik
-model = pickle.load(open('model.pkl', 'rb'))
+# Load model
+with open('model.pkl', 'rb') as file:
+    models = pickle.load(file)
+
+model = models['rf_model']  # Menggunakan Random Forest sebagai contoh
+
+st.title('Prediksi Kepuasan Pelanggan')
 
 # CSS for styling
 st.markdown("""
