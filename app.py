@@ -4,7 +4,7 @@ import joblib
 from sklearn.preprocessing import StandardScaler, LabelEncoder
 
 # Memuat model terbaik
-model = joblib.load('model.pkl')
+model = joblib.load('best_model.pkl')
 
 # Memuat data untuk pengkodean dan penskalaan
 data = pd.read_csv('onlinefoods.csv')
@@ -42,46 +42,33 @@ def preprocess_input(user_input):
     processed_input = pd.DataFrame(processed_input)
     processed_input[numeric_features] = scaler.transform(processed_input[numeric_features])
     return processed_input
-
 # CSS for styling
 st.markdown("""
     <style>
     .main {
-        background-color: #f5f5f5;
-        padding: 20px;
+        background-color: #87CEEB;
     }
     h1 {
-        color: #333333;
+        color: #4b4b4b;
         text-align: center;
-        font-family: 'Arial', sans-serif;
-        margin-bottom: 40px;
+        margin-bottom: 25px;
     }
     h3 {
-        color: #333333;
-        font-family: 'Arial', sans-serif;
+        color: #4b4b4b;
     }
     .stButton>button {
-        background-color: #4CAF50;
-        color: white;
+        background-color: #4b4b4b;
+        color: black;
         padding: 10px 24px;
         border: none;
         border-radius: 4px;
         cursor: pointer;
-        font-size: 16px;
     }
     .stButton>button:hover {
-        background-color: #45a049;
+        background-color: #4b4b4b;
     }
     .stNumberInput, .stSelectbox {
         margin-bottom: 20px;
-    }
-    .output {
-        margin-top: 30px;
-        padding: 20px;
-        background-color: #e7f3fe;
-        border-left: 6px solid #2196F3;
-        font-family: 'Arial', sans-serif;
-        color: #333333;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -90,9 +77,12 @@ st.markdown("""
 st.title("Prediksi Feedback Pelanggan Online Food")
 
 st.markdown("""
-    <div class="main">
-        <h3>Masukkan Data Pelanggan</h3>
-    </div>
+    <style>
+    .main {
+        background-color: #87CEEB;
+    }
+    </style>
+    <h3>Masukkan Data Pelanggan</h3>
 """, unsafe_allow_html=True)
 
 # Input pengguna
@@ -124,7 +114,7 @@ if st.button('Predict'):
     user_input_processed = preprocess_input(user_input)
     try:
         prediction = model.predict(user_input_processed)
-        st.markdown(f'<div class="output">Prediction: {prediction[0]}</div>', unsafe_allow_html=True)
+        st.write(f'Prediction: {prediction[0]}')
     except ValueError as e:
         st.error(f"Error in prediction: {e}")
 
